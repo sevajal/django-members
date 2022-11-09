@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <link rel="stylesheet" href="{% static 'myfirst.css' %}">
+    <script src="{% static 'myfirst.js' %}"></script>
+    <body>
+        <header>
+            {% include 'mymenu.html' with me="SEVAJAL" sponsor="W3SCHOOLS" %}
+        </header>
+
+        <h1>Members</h1>
+
+        <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Actions</th>
+        </tr>
+        {% for x in mymembers %}
+        <tr style="background-color:{% cycle 'lightblue' 'pink' %}">
+            <td><a href="update/{{ x.id }}">{{ x.id }}</a></td>
+            <td>{{ x.firstname|upper }}</td>
+            {% filter upper %}
+            <td>{{ x.lastname }}</td>
+            {% endfilter %}
+            <td><a href="delete/{{ x.id }}">delete</a></td>
+        </tr>
+        {% empty %}
+        <p>No members</p>
+        {% endfor %}
+        </table>
+
+        <p>
+            <a href="add/">Add member</a>
+        </p>
+
+        <img style="width: 200px;" src="{% static 'members.png' %}">
+        <button onclick="myFunction()">Click me!</button>
+
+        <footer>
+            {% include 'footer.html' %} 
+        </footer>
+    </body>
+</html>
